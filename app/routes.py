@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify
 
+
 class Planet:
     def __init__(self, id, name, description, gravity):
         self.id = id
