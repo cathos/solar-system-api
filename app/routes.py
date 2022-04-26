@@ -27,7 +27,6 @@ def handle_planets():
             gravity = planet.gravity
         ))
     return jsonify(planets_result)
-<<<<<<< HEAD
 
 @planets_bp.route("/<planet_id>", methods = ["GET"])
 def get_planet(planet_id):
@@ -46,5 +45,3 @@ def get_planet(planet_id):
                 
             }
     abort(make_response(jsonify(dict(details=f"planet id {planet_id} not found")), 404))
-=======
->>>>>>> 59817b91a6790952af51646773cb3b9ffe22a932
