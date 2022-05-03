@@ -72,7 +72,7 @@ def add_planet():
 
     return make_response(f"Planet {new_planet.name} successfully created", 201)
 
-@planets_bp.route("/<planet_id>", methods=["PATCH"])
+@planets_bp.route("/<planet_id>", methods=["PUT"])
 def update_planet(planet_id):
     planet = validate_planet(planet_id)
     request_body = request.get_json()
@@ -91,6 +91,15 @@ def update_planet(planet_id):
 
     db.session.commit()
     return make_response(f"Planet #{planet.id} successfully updated", 200)
+
+@planets_bp.route("/<planet_id>", methods=["DELETE"])
+def delete_planet(planet_id):
+    planet = validate_planet(planet_id)
+
+    db.session.delete(planet)
+    db.session.commit()
+
+    return make_response(f"Planet #{planet.id} successfully deleted", 200)
 
 # @planets_bp.route("/<planet_id>", methods = ["GET"])
 # def get_planet(planet_id):
