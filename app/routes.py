@@ -35,6 +35,7 @@ def read_one_planet(planet_id):
     planet = validate_planet(planet_id)
     return {
         "id": planet.id,
+        "order_from_sun": planet.order_from_sun,
         "name": planet.name,
         "description": planet.description,
         "gravity": planet.gravity
@@ -51,11 +52,23 @@ def get_all_planets():
     #         gravity = planet.gravity
     #     ))
     # return jsonify(planets_result)
-    planets = Planet.query.all()
+    name_query = request.args.get("name")
+    description_query = request.args.get("description")
+    order_from_sun_query = request.args.get("order_from_sun")
+    if name_query:
+        planets = Planet.query.filter_by(name=name_query)
+    elif description_query:
+        planets = Planet.query.filter(description=(contains(description_query)))
+    elif order_from_sun_query:
+        planets = Planet.query.filter_by(order_from_sun =order_from_sun_query)
+    else:
+        planets = Planet.query.all()
+    
     planets_response = []
     for planet in planets: 
         planets_response.append({
             "id": planet.id,
+            "order_from_sun": planet.order_from_sun,
             "name": planet.name,
             "description": planet.description,
             "gravity": planet.gravity
@@ -65,7 +78,7 @@ def get_all_planets():
 @planets_bp.route("", methods=["POST"])
 def add_planet():
     request_body = request.get_json()
-    new_planet = Planet(name=request_body["name"], description=request_body["description"], gravity=request_body["gravity"])
+    new_planet = Planet(name=request_body["name"], order_from_sun=request_body["order_from_sun"], description=request_body["description"], gravity=request_body["gravity"])
 
     db.session.add(new_planet)
     db.session.commit()
@@ -84,6 +97,8 @@ def update_planet(planet_id):
         planet.description = request_body["description"]
     if "gravity" in request_body_keys:
         planet.gravity = request_body["gravity"]
+    if "order_from_sun" in request_body_keys:
+        planet.order_from_sun = request_body["order_from_sun"]
 
     # planet.name = request_body["name"]
     # planet.description = request_body["description"]
