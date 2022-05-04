@@ -58,7 +58,7 @@ def get_all_planets():
     if name_query:
         planets = Planet.query.filter_by(name=name_query)
     elif description_query:
-        planets = Planet.query.filter(description=(contains(description_query)))
+        planets = Planet.query.filter(Planet.description.ilike("%" + description_query + "%"))
     elif order_from_sun_query:
         planets = Planet.query.filter_by(order_from_sun =order_from_sun_query)
     else:
