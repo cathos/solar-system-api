@@ -61,11 +61,11 @@ def test_post_one_planet_to_database(client):
         "order_from_sun": 9,
         "description": "Pluto is smaller than Earth's moon",
         "gravity": "0.62 m/s2" 
-        
         })
     response_body = response.get_data()
     
     assert response.status_code == 201
-    assert response_body == "Planet Pluto successfully created"   
+    print(response_body)
+    assert response_body == b"Planet Pluto successfully created"   
 
 
