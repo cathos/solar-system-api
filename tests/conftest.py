@@ -71,6 +71,7 @@ def client(app):
 def two_planets(app):
     Earth = Planet(id=3, order_from_sun= 3, name="Earth", description= "something about earth", gravity= "9.81 m/s2")
     Venus = Planet(id=2, order_from_sun= 2, name="Venus", description= "Very hot planet with a dense atmosphere", gravity= "8.87 m/s2")
+    
 
     db.session.add(Earth)
     db.session.add(Venus)
