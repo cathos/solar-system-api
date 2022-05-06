@@ -1,0 +1,5 @@
+order_from_sun, name, description, gravity
+3, Earth, something about earth, 9.81 m/s2
+2, Venus, Very hot planet with a dense atmosphere, 8.87 m/s2
+1, Mercury, Closest planet to the sun, m/s2
+4, Mars, Thin atmosphere, m/s2

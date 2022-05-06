@@ -17,6 +17,10 @@ from flask import Blueprint, jsonify, make_response, request, abort
 
 planets_bp = Blueprint("planets", __name__, url_prefix="/planets")
 
+@planets_bp.route("/teapot", methods=["GET", "POST"])
+def handle_teapot():
+    return make_response("I'm a teapot!", 418)
+
 def validate_planet(planet_id):
     try:
         planet_id = int(planet_id)
@@ -115,6 +119,8 @@ def delete_planet(planet_id):
     db.session.commit()
 
     return make_response(f"Planet #{planet.id} successfully deleted", 200)
+
+
 
 # @planets_bp.route("/<planet_id>", methods = ["GET"])
 # def get_planet(planet_id):

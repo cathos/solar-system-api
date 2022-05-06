@@ -16,6 +16,7 @@ def create_app(test_config=None):
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("SQLALCHEMY_DATABASE_URI")
 
     else:
+        print("Testing is on")
         app.config["TESTING"] = True
         app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
         app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("SQLALCHEMY_TEST_DATABASE_URI")
@@ -26,6 +27,5 @@ def create_app(test_config=None):
     from .routes import planets_bp
     from app.models.planet import Planet
     app.register_blueprint(planets_bp)
-
 
     return app
