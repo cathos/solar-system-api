@@ -7,3 +7,4 @@ class Planet(db.Model):
     name = db.Column(db.String)
     description = db.Column(db.String)
     gravity = db.Column(db.String)
+    moons = db.relationship("Moon", back_populates = "planet")

@@ -1,5 +1,6 @@
 from app import db
 from app.models.planet import Planet
+from app.models.moon import Moon
 from flask import Blueprint, jsonify, make_response, request, abort
 
 
@@ -71,6 +72,31 @@ def add_planet():
     db.session.commit()
 
     return make_response(f"Planet {new_planet.name} successfully created", 201)
+
+@planets_bp.route("/<planet_id>/moons", methods=["POST"])
+def add_moon(planet_id):
+    moons_planet = validate_planet(planet_id)
+    request_body = request.get_json()
+    # request_body_keys = request_body.keys()
+    if not request_body:
+        return make_response(f"Invalid request body", 400)
+    else:
+        new_moon = Moon(
+            name = request_body["name"],
+            description = request_body["description"],
+            planet_id = planet_id)
+
+        # if "name" in request_body_keys:
+        #     moon.name = request_body["name"]
+        # if "description" in request_body_keys:
+        #     moon.description = request_body["description"]
+
+        db.session.add(new_moon)
+        db.session.commit()
+
+        return make_response(f"Moon #{new_moon.id} successfully updated", 200)
+
+
 
 @planets_bp.route("/<planet_id>", methods=["PUT"])
 def update_planet(planet_id):
