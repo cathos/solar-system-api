@@ -63,7 +63,7 @@ def test_post_one_planet_to_database(client):
         "gravity": "0.62 m/s2" 
         
         })
-    response_body = response.get_data()
+    response_body = response.get_json()
     
     assert response.status_code == 201
     assert response_body == "Planet Pluto successfully created"   

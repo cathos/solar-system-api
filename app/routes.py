@@ -87,7 +87,7 @@ def add_planet():
     db.session.add(new_planet)
     db.session.commit()
 
-    return make_response(f"Planet {new_planet.name} successfully created", 201)
+    return make_response(jsonify(f"Planet {new_planet.name} successfully created"), 201)
 
 @planets_bp.route("/<planet_id>", methods=["PUT"])
 def update_planet(planet_id):
